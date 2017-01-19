@@ -3,10 +3,25 @@
 A Leiningen plugin for building simple packages using
 [fpm](https://github.com/jordansissel/fpm).
 
-Generated packages install a standalone JAR for your project in `/usr/lib`, a
-wrapper shell script in `/usr/bin`, and an upstart script in `/etc/init`.
-lein-fpm assumes that your project can successfully build a functioning
-standalone jar via `lein uberjar`.
+Generated packages install will be copy the files from the target to destination defined in `files` of `fpm` in `project.clj`.
+
+
+    (defproject foo "0.1.0-SNAPSHOT"
+      ...
+
+      :plugins [[lein-fpm "0.2.4"]]
+      :uberjar-name "foo.jar"
+
+      :fpm {:depends {"deb" ["openjdk-7-jre-headless" "something" "jsvc"]
+                      "rpm" ["java-1.7.0-openjdk" "something" "jsvc"]}
+
+            :files ["target/foo.jar=/usr/lib/foo/foo.jar"
+                    "bin/start=/etc/init.d/foo"
+                    "config.edn=/etc/foo/config.edn"]}
+       
+       ...
+
+Then after `lein uberjar` run `lein fpm deb`.
 
 [![Clojars Project](http://clojars.org/lein-fpm/latest-version.svg)](http://clojars.org/lein-fpm)
 
@@ -14,11 +29,11 @@ standalone jar via `lein uberjar`.
 
 ### System-wide install
 
-Put `[lein-fpm "0.2.3"]` into the `:plugins` vector of your `:user` profile.
+Put `[lein-fpm "0.2.4"]` into the `:plugins` vector of your `:user` profile.
 
 ### Per-project install
 
-Put `[lein-fpm "0.2.3"]` into the `:plugins` vector of your project.clj.
+Put `[lein-fpm "0.2.4"]` into the `:plugins` vector of your project.clj.
 
 ### Building a package
 
@@ -28,7 +43,7 @@ lein-fpm will produce a deb by default:
 
 or you can supply a specific target type:
 
-    $ lein fpm rpm
+    $ lein fpm deb
 
 This will produce a package in the `target` directory.
 
@@ -36,30 +51,12 @@ This will produce a package in the `target` directory.
 
 By default, deb packages will depend on `openjdk-7-jre-headless`, rpm packages
 will depend on `java-1.7.0-openjdk`, and solaris packages will depend on
-`jdk-7`.
+`jdk-7`. If you want to override this you can provide your own dependencies by defining them in `project.clj`:
 
-### Using a package
-
-Install the package using the appropriate package manager, then start the application with upstart:
-
-```bash
-$ sudo start APP-NAME
-APP-NAME start/running, process 27699
-$ status APP-NAME
-APP-NAME start/running, process 27699
-$ sudo restart APP-NAME
-APP-NAME start/running, process 27743
-$ sudo stop APP-NAME
-APP-NAME stop/waiting
-```
-
-## Caveats
-
-At the moment, lein-fpm is quite simple and does not yet support configuration
-beyond the target type. Contributions and feedback are welcome! This project is
-a bit of an experimental tool I created in trying to produce the simplest
-packages that will usefully run within [immutable
-servers](http://martinfowler.com/bliki/ImmutableServer.html).
+    :fpm {
+      :depends {
+        "deb" ["jsvc" "openjdk-7-jre-headless"]
+        "rpm" ["jsvc" "java-1.7.0-openjdk"]}}
 
 ## Dependencies
 

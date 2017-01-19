@@ -1,6 +1,6 @@
-(defproject lein-fpm "0.2.3"
+(defproject lein-fpm "0.2.4"
   :description "A Leiningen plugin for building simple packages using fpm."
-  :url "http://github.com/bts/lein-fpm"
+  :url "http://github.com/clohfink/lein-fpm"
   :license {:name "MIT License"
             :url "http://opensource.org/licenses/MIT"}
   :dependencies [[me.raynes/fs "1.4.5"]]
