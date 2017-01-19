@@ -23,7 +23,7 @@ Generated packages install will be copy the files from the target to destination
 
 Then after `lein uberjar` run `lein fpm deb`.
 
-[![Clojars Project](http://clojars.org/lein-fpm/latest-version.svg)](http://clojars.org/lein-fpm2)
+[![Clojars Project](http://clojars.org/lein-fpm2/latest-version.svg)](http://clojars.org/lein-fpm2)
 
 ## Usage
 
