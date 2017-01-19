@@ -9,7 +9,7 @@ Generated packages install will be copy the files from the target to destination
     (defproject foo "0.1.0-SNAPSHOT"
       ...
 
-      :plugins [[lein-fpm "0.2.4"]]
+      :plugins [[lein-fpm2 "0.0.1"]]
       :uberjar-name "foo.jar"
 
       :fpm {:depends {"deb" ["openjdk-7-jre-headless" "something" "jsvc"]
@@ -23,17 +23,17 @@ Generated packages install will be copy the files from the target to destination
 
 Then after `lein uberjar` run `lein fpm deb`.
 
-[![Clojars Project](http://clojars.org/lein-fpm/latest-version.svg)](http://clojars.org/lein-fpm)
+[![Clojars Project](http://clojars.org/lein-fpm/latest-version.svg)](http://clojars.org/lein-fpm2)
 
 ## Usage
 
 ### System-wide install
 
-Put `[lein-fpm "0.2.4"]` into the `:plugins` vector of your `:user` profile.
+Put `[lein-fpm2 "0.0.1"]` into the `:plugins` vector of your `:user` profile.
 
 ### Per-project install
 
-Put `[lein-fpm "0.2.4"]` into the `:plugins` vector of your project.clj.
+Put `[lein-fpm2 "0.0.1"]` into the `:plugins` vector of your project.clj.
 
 ### Building a package
 
